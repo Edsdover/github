@@ -3,13 +3,11 @@
 $(document).ready(init);
 
 function init() {
-  // generateTiles();
   populateProfiles();
 }
 
 var currTime = moment.utc();
 var profiles = [];
-
 
 function populateProfiles(){
   $.getJSON('https://api.github.com/orgs/coding-house-apr2015/members', function(loginResponse){
@@ -21,40 +19,47 @@ function populateProfiles(){
 }
 
 function generateTiles() {
-  profiles.forEach(function(profile, index, array){
+  profiles.forEach(function(profile){
     var profileUrl = 'https://api.github.com/users/' + profile.un;
     var eventsUrl = profileUrl + '/events';
     $.getJSON(profileUrl, function(profileresponse){
       $.getJSON(eventsUrl, function(eventsresponse){
         var commitCount = countCommits(eventsresponse);
+        var PRCount = countPRs(eventsresponse, profile.un);
         var commentCount = countComments(eventsresponse);
-        array[index].comments = commentCount;
-        array[index].commits = commitCount;
         var $newRow = $("#template").clone();
         $newRow.find(".image").attr("src", profileresponse.avatar_url);
         $newRow.find(".name").text(profileresponse.name);
-        $newRow.find(".commits").text(commitCount);
-        $newRow.find(".comments").text(commentCount);
-        $newRow.find(".card.row").css('background-color',colorTiles(commitCount));
-        $newRow.removeClass("hidden");
+        $newRow.find(".commits").text(commitCount + ' Commits');
+        $newRow.find(".comments").text(commentCount + ' Comments');
+        $newRow.find(".pulls").text(PRCount + ' Pull Requests');
+        $newRow.find(".card.row").addClass('status-'+calcScore(commitCount, PRCount, commentCount));
+        $newRow.removeClass('hidden');
         $('#cards-container').append($newRow);
       });
     });
   });
 }
 
-function colorTiles(dc){
-  return dc > 4 ? 'green' : 'red';
-}
-
 function countCommits(eventsresponse){
-  var commitCount = 0;
+  var commits = 0;
   eventsresponse.forEach(function(event){
     if(event.payload.comment !== '' && moment.utc(event.created_at).diff(currTime, 'hours') > -24){
-     commitCount++;
+      commits++;
     }
   });
-  return commitCount;
+  return commits;
+}
+
+function countPRs(eventsresponse, userName){
+  var prs = 0;
+  eventsresponse.forEach(function(event){
+    if(event.type === 'PullRequestEvent' && (moment.utc(event.created_at).diff(currTime, 'hours') > -24) &&
+    event.payload.pull_request.user.login === userName){
+      prs++;
+    }
+  });
+  return prs;
 }
 
 function countComments(eventsresponse){
@@ -65,4 +70,9 @@ function countComments(eventsresponse){
     }
   });
   return commentCount;
+}
+
+function calcScore(commits, prs, comments){
+  var score = ((commits * 10) + (prs * 15) + comments);
+  return score > 55 ? 'pass' : 'fail';
 }

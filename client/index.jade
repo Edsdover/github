@@ -4,7 +4,8 @@ html
     meta(charset='utf-8')
     meta(name="viewport", content="width=device-width, initial-scale=1")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    title Git Blame
+    title Git 'Er Done
+    link(rel='stylesheet', href='/vendor/octicons/octicons/octicons.css')
     link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
@@ -13,18 +14,20 @@ html
     .container
       .panel.panel-default
         .panel.body
-          #github
-          h1 Git Blame
-          #ch
+          #header
+            //img#github(src='/assets/gitlogo.png')
+            h1 Git Blame
+            #ch
 
       #cards-container.row
         #template.col-sm-4.hidden
           .card.row
             .col-sm-4.left-edge-content
               img.image(src='')
-            .col-sm-8
+            .col-sm-8.info
               .name
               .commits
+              .pulls
               .comments
 
     script(src='/vendor/moment/moment.js')
