@@ -1,5 +1,9 @@
 'use strict';
 
+//TRACKER: To change the tracked GitHub organization please type the desired name within the quotes below:
+//In addition please edit the link section in Index.html
+var organization = 'coding-house-apr2015';
+
 $(document).ready(init);
 
 function init() {
@@ -11,7 +15,7 @@ var currTime = moment.utc();
 var profiles = [];
 
 function populateProfiles(){
-  $.getJSON('https://api.github.com/orgs/coding-house-apr2015/members', function(loginResponse){
+  $.getJSON('https://api.github.com/orgs/' + organization + '/members', function(loginResponse){
     loginResponse.forEach(function(profile){
       profiles.push({'un': profile.login});
     });
