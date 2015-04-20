@@ -28,8 +28,10 @@ body {
     background-color:#f57e61;
   }
 }
-.name{
-  font-size: 1.5em;
+.name {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.3em;
 }
 .image {
   height: 95px;
@@ -47,10 +49,7 @@ body {
 }
 }
 }
-.octicon{
-  width: 20px;
 
-}
 #github {
   height: 20em;
   width: auto;
@@ -60,5 +59,25 @@ body {
 }
 h1 {
   text-align: center;
+}
 
+.octicon {
+  width: 30px;
+  display: table-header-group;
+  line-height: 22px;
+}
+
+.octicon-comment-add:before, .octicon-comment:before {
+  content: '\f02b';
+  padding-right: 5px;
+}
+
+.octicon-git-pull-request-abandoned:before, .octicon-git-pull-request:before {
+  content: '\f009';
+  padding-right: 7px;
+}
+
+.octicon-history:before {
+  content: '\f07e';
+  padding-right: 5px;
 }
