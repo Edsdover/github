@@ -4,6 +4,7 @@ $(document).ready(init);
 
 function init() {
   populateProfiles();
+  $('.template').on('mouseover');
 }
 
 var currTime = moment.utc();
@@ -20,9 +21,9 @@ function populateProfiles(){
 
 function generateTiles() {
   profiles.forEach(function(profile){
-    var profileUrl = 'https://api.github.com/users/' + profile.un;
-    var eventsUrl = profileUrl + '/events';
-    $.getJSON(profileUrl, function(profileresponse){
+    var apiURL = 'https://api.github.com/users/' + profile.un;
+    var eventsUrl = apiURL + '/events';
+    $.getJSON(apiURL, function(profileresponse){
       $.getJSON(eventsUrl, function(eventsresponse){
         var commitCount = countCommits(eventsresponse);
         var PRCount = countPRs(eventsresponse, profile.un);
@@ -30,6 +31,7 @@ function generateTiles() {
         var $newRow = $("#template").clone();
         $newRow.find(".image").attr("src", profileresponse.avatar_url);
         $newRow.find(".name").text(profileresponse.name);
+        $newRow.find(".handle").append('<a href="https://github.com/' + profileresponse.login + '">@' + profileresponse.login + '</a>');
         $newRow.find(".commits").text(commitCount + ' Commits');
         $newRow.find(".comments").text(commentCount + ' Comments');
         $newRow.find(".pulls").text(PRCount + ' Pull Requests');

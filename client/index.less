@@ -5,10 +5,10 @@ body {
     background-color:#ccc;
     h1#header{
       text-align:center;
+      padding: 1%;
     }
   }
   .card {
-    border: thin solid #aaa;
     margin: 0.5em auto;
     -webkit-box-shadow: 6px 7px 24px 0px rgba(102,96,102,0.65);
     -moz-box-shadow: 6px 7px 24px 0px rgba(102,96,102,0.65);
@@ -34,29 +34,37 @@ body {
   font-size: 1.3em;
 }
 .image {
-  height: 95px;
+  height: 125px;
   width: auto;
 }
 @media screen and (max-width:766px){
-.image {
-  height: 120px;
-  width: 120px;
-  float: left;
-.info {
-  float: right;
-  padding-right: 15% !important;
-  text-align: left;
-}
-}
+  .image {
+    height: 120px;
+    width: 120px;
+    float: left;
+    .info {
+      float: right;
+      text-align: left;
+    }
+  }
 }
 
 #github {
-  height: 20em;
+  height: 7em;
   width: auto;
   padding: 0;
   margin: 0;
   float: left;
 }
+
+#codingHouse{
+  height: 6em;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+
 h1 {
   text-align: center;
 }
@@ -80,4 +88,10 @@ h1 {
 .octicon-history:before {
   content: '\f07e';
   padding-right: 5px;
+}
+
+#template:hover {
+   transition: all .2s ease-in-out;
+   transform: scale(1.5);
+   z-index: 99;
 }

@@ -12,13 +12,11 @@ html
     link(rel='shortcut icon', href='/favicon.ico')
   body
     .container
-      .panel.panel-default
+      img#github(src='/assets/gitlogo.png')
+      img#codingHouse(src='/assets/logo.png')
+      .foo
         .panel.body
-          #header
-            //img#github(src='/assets/gitlogo.png')
-            h1 Git Rekt
-            #ch
-
+          h1#header Git Rekt
       #cards-container.row
         #template.col-sm-4.hidden
           .card.row
@@ -26,6 +24,7 @@ html
               img.image(src='')
             .col-sm-8.info
               .name
+              .handle
               .octicon.octicon-history.commits
               .octicon.octicon-git-pull-request.pulls
               .octicon.octicon-comment.comments
